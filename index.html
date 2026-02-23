@@ -1414,7 +1414,6 @@ async function submitForm() {
   try {
     await fetch('https://n8n-production-fc7d.up.railway.app/webhook/flowops-research-form', {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
