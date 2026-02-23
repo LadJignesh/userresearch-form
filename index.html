@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowOps AI — Business Insights Survey</title>
+<meta name="description" content="Help FlowOps AI build automation that works for Irish businesses. Share your operational pain points in this 5-minute anonymous survey.">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:title" content="FlowOps AI — Business Insights Survey">
+<meta property="og:description" content="Help us map the biggest operational pain points for Irish businesses. Takes ~5 minutes. Anonymous.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_IE">
+
+<!-- Favicon (inline SVG data URI to avoid 404) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B2545;
+    --navy2: #122d5a;
+    --teal: #0891B2;
+    --teal-lt: #E0F7FA;
+    --teal-mid: #0ea5c9;
+    --gold: #C9A84C;
+    --gold-lt: #FEF9EC;
+    --off-white: #F8FAFD;
+    --mid: #64748B;
+    --light: #E2E8F0;
+    --white: #ffffff;
+    --text: #1E293B;
+    --error: #DC2626;
+    --error-lt: #FEF2F2;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(11,37,69,0.10);
+    --shadow-lg: 0 12px 48px rgba(11,37,69,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO HEADER ───────────────────────────────────────── */
+  .hero {
+    background: var(--navy);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(8,145,178,0.18) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(8,145,178,0.2);
+    border: 1px solid rgba(8,145,178,0.4);
+    color: #67E8F9;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 span { color: #67E8F9; }
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.72);
+    max-width: 540px;
+    margin: 0 auto 28px;
+    line-height: 1.65;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-meta span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-meta span::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+
+  /* ── PROGRESS ───────────────────────────────────────────── */
+  .progress-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--light);
+    padding: 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(11,37,69,0.06);
+  }
+  .progress-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .progress-labels span {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mid);
+    letter-spacing: 0.5px;
+  }
+  .progress-labels .current { color: var(--teal); }
+  .progress-bar-bg {
+    height: 4px;
+    background: var(--light);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), #22D3EE);
+    border-radius: 100px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+  .step-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .step-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--light);
+    transition: all 0.3s ease;
+  }
+  .step-dot.active { background: var(--teal); transform: scale(1.3); }
+  .step-dot.done { background: var(--navy); }
+
+  /* ── MAIN CONTAINER ─────────────────────────────────────── */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── STEPS ──────────────────────────────────────────────── */
+  .step {
+    display: none;
+    animation: fadeUp 0.4s ease both;
+  }
+  .step.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-header {
+    margin-bottom: 32px;
+  }
+  .step-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  /* ── QUESTION CARD ──────────────────────────────────────── */
+  .q-card {
+    background: var(--white);
+    border: 1px solid var(--light);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .q-card:focus-within {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(8,145,178,0.08);
+  }
+  .q-card.has-error {
+    border-color: var(--error);
+    background: var(--error-lt);
+  }
+
+  .q-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.4;
+  }
+  .q-label .req { color: var(--teal); font-size: 12px; margin-top: 2px; }
+  .q-hint {
+    font-size: 12px;
+    color: var(--mid);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  /* Validation error message */
+  .error-msg {
+    font-size: 12px;
+    color: var(--error);
+    margin-top: 8px;
+    display: none;
+    font-weight: 500;
+  }
+  .q-card.has-error .error-msg {
+    display: block;
+  }
+
+  /* Inputs */
+  input[type="text"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 11px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--off-white);
+    border: 1.5px solid var(--light);
+    border-radius: 8px;
+    transition: border-color 0.2s, background 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--teal);
+    background: var(--white);
+  }
+  textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+  select { cursor: pointer; }
+
+  /* Radio / Checkbox grid */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .options-grid.col2 { grid-template-columns: 1fr 1fr; }
+  .options-grid.col1 { grid-template-columns: 1fr; }
+
+  .opt-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border: 1.5px solid var(--light);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+    transition: all 0.2s;
+    background: var(--off-white);
+    user-select: none;
+    line-height: 1.3;
+  }
+  .opt-label:hover {
+    border-color: var(--teal);
+    background: var(--teal-lt);
+    color: var(--navy);
+  }
+  .opt-label input { display: none; }
+  .opt-label.checked {
+    border-color: var(--teal);
+    background: var(--teal-lt);
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .opt-check {
+    width: 18px; height: 18px;
+    border: 2px solid var(--light);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    background: var(--white);
+  }
+  .opt-label.checked .opt-check {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .opt-check::after {
+    content: '';
+    display: none;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--white);
+  }
+  .opt-label.checked .opt-check::after { display: block; }
+
+  /* Checkbox variant */
+  .opt-label.cb-style .opt-check {
+    border-radius: 4px;
+  }
+  .opt-label.cb-style.checked .opt-check::after {
+    width: 10px; height: 6px;
+    border-radius: 0;
+    background: transparent;
+    border-left: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  /* Scale rating */
+  .scale-wrap {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .scale-btn {
+    width: 44px; height: 44px;
+    border-radius: 8px;
+    border: 1.5px solid var(--light);
+    background: var(--off-white);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mid);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .scale-btn:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-lt); }
+  .scale-btn.selected { background: var(--teal); border-color: var(--teal); color: var(--white); }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--mid);
+  }
+
+  /* ── PAIN POINT CHECKLIST ─────────────────────────────── */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  @media (max-width: 500px) { .pain-grid { grid-template-columns: 1fr; } }
+
+  .pain-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px;
+    border: 1.5px solid var(--light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--off-white);
+    user-select: none;
+  }
+  .pain-card input { display: none; }
+  .pain-card:hover { border-color: var(--teal); background: var(--teal-lt); }
+  .pain-card.checked { border-color: var(--teal); background: var(--teal-lt); }
+  .pain-icon { font-size: 20px; flex-shrink: 0; }
+  .pain-text strong { display: block; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+  .pain-text span { font-size: 11.5px; color: var(--mid); line-height: 1.4; }
+  .pain-cb {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    border: 2px solid var(--light);
+    flex-shrink: 0;
+    margin-left: auto;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--white);
+    transition: all 0.2s;
+  }
+  .pain-card.checked .pain-cb {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .pain-card.checked .pain-cb::after {
+    content: '';
+    display: block;
+    width: 10px; height: 6px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg) translate(1px,-1px);
+  }
+
+  /* ── NAVIGATION BUTTONS ─────────────────────────────────── */
+  .nav-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    justify-content: space-between;
+  }
+  .btn {
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+  .btn-primary {
+    background: var(--navy);
+    color: var(--white);
+    flex: 1;
+    justify-content: center;
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--navy2); transform: translateY(-1px); box-shadow: var(--shadow); }
+  .btn-back {
+    background: var(--white);
+    color: var(--mid);
+    border: 1.5px solid var(--light);
+    padding: 13px 20px;
+  }
+  .btn-back:hover { color: var(--navy); border-color: var(--navy); }
+  .btn-submit {
+    background: linear-gradient(135deg, var(--teal), #0B6E8A);
+    color: white;
+    flex: 1;
+    justify-content: center;
+    font-size: 15px;
+    padding: 15px 28px;
+  }
+  .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(8,145,178,0.3); }
+
+  /* ── THANK YOU ──────────────────────────────────────────── */
+  .thank-you {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .thank-you.active { display: block; }
+  .ty-icon {
+    width: 80px; height: 80px;
+    background: var(--teal-lt);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    margin: 0 auto 24px;
+  }
+  .thank-you h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .thank-you p {
+    font-size: 15px;
+    color: var(--mid);
+    line-height: 1.65;
+    max-width: 440px;
+    margin: 0 auto 32px;
+  }
+  .ty-card {
+    background: var(--navy);
+    color: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .ty-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #67E8F9; letter-spacing: 1px; text-transform: uppercase; }
+  .ty-card p { font-size: 13px; color: rgba(255,255,255,0.72); margin: 0; }
+
+  /* ── DIVIDER ─────────────────────────────────────────────── */
+  .section-divider {
+    height: 1px;
+    background: var(--light);
+    margin: 8px 0 20px;
+  }
+
+  /* ── FOOTER NOTE ─────────────────────────────────────────── */
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--mid);
+    margin-top: 40px;
+    line-height: 1.6;
+  }
+  .footer-note a { color: var(--teal); text-decoration: none; }
+
+  /* ── TOAST NOTIFICATION ──────────────────────────────────── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--navy);
+    color: var(--white);
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    max-width: 90vw;
+    text-align: center;
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast.error {
+    background: var(--error);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .options-grid.col2 { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 36px; }
+    .container { padding: 28px 16px 60px; }
+    .btn { padding: 12px 18px; }
+    .q-card { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<header class="hero" role="banner">
+  <div class="hero-badge">FlowOps AI · Business Research Survey</div>
+  <h1>Help Us Build <span>AI Automation</span><br>That Actually Works For You</h1>
+  <p>We're mapping the biggest operational pain points for Irish businesses. Takes 4–6 minutes. Your answers directly shape what we build and how we serve businesses in Northwest Ireland.</p>
+  <div class="hero-meta" aria-label="Survey details">
+    <span>Anonymous — no selling</span>
+    <span>~5 minutes</span>
+    <span>Sligo, Ireland</span>
+  </div>
+</header>
+
+<!-- ── PROGRESS BAR ── -->
+<nav class="progress-wrap" id="progressWrap" aria-label="Survey progress">
+  <div class="progress-inner">
+    <div class="progress-labels">
+      <span id="stepLabel" class="current">Step 1 of 5</span>
+      <span id="stepName">About Your Business</span>
+    </div>
+    <div class="progress-bar-bg" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar-fill" id="progressFill" style="width:20%"></div>
+    </div>
+    <div class="step-dots" id="stepDots" aria-hidden="true"></div>
+  </div>
+</nav>
+
+<!-- ── FORM ── -->
+<main class="container">
+<form id="mainForm" novalidate>
+
+  <!-- ════ STEP 1: ABOUT YOU ════ -->
+  <div class="step active" id="step-1" role="group" aria-label="Section 1: About Your Business">
+    <div class="step-header">
+      <div class="step-num">Section 01</div>
+      <div class="step-title">About Your Business</div>
+      <div class="step-desc">Quick background so we understand your context. All information stays anonymous unless you choose to share contact details at the end.</div>
+    </div>
+
+    <div class="q-card" data-required="bizType" data-type="radio">
+      <div class="q-label" id="lbl-bizType">What type of business do you run? <span class="req" aria-label="required">*</span></div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-bizType">
+        <label class="opt-label" onclick="selectOpt(this,'bizType','radio')">
+          <input type="radio" name="bizType" value="solicitor" aria-labelledby="lbl-bizType">
+          <div class="opt-check" aria-hidden="true"></div> Solicitor / Law Firm
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'bizType','radio')">
+          <input type="radio" name="bizType" value="accountant">
+          <div class="opt-check" aria-hidden="true"></div> Accountant / Bookkeeper
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'bizType','radio')">
+          <input type="radio" name="bizType" value="marketing_agency">
+          <div class="opt-check" aria-hidden="true"></div> Marketing / Digital Agency
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'bizType','radio')">
+          <input type="radio" name="bizType" value="financial_services">
+          <div class="opt-check" aria-hidden="true"></div> Financial / Insurance Services
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'bizType','radio')">
+          <input type="radio" name="bizType" value="consultant">
+          <div class="opt-check" aria-hidden="true"></div> Business Consultant
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'bizType','radio')">
+          <input type="radio" name="bizType" value="other">
+          <div class="opt-check" aria-hidden="true"></div> Other Services Business
+        </label>
+      </div>
+      <div class="error-msg">Please select your business type to continue.</div>
+    </div>
+
+    <div class="q-card" data-required="role" data-type="radio">
+      <div class="q-label" id="lbl-role">What is your role in the business? <span class="req" aria-label="required">*</span></div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-role">
+        <label class="opt-label" onclick="selectOpt(this,'role','radio')">
+          <input type="radio" name="role" value="owner">
+          <div class="opt-check" aria-hidden="true"></div> Owner / Director
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'role','radio')">
+          <input type="radio" name="role" value="partner">
+          <div class="opt-check" aria-hidden="true"></div> Managing Partner
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'role','radio')">
+          <input type="radio" name="role" value="ops">
+          <div class="opt-check" aria-hidden="true"></div> Operations Manager
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'role','radio')">
+          <input type="radio" name="role" value="senior_staff">
+          <div class="opt-check" aria-hidden="true"></div> Senior Staff Member
+        </label>
+      </div>
+      <div class="error-msg">Please select your role to continue.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-teamSize">How many people work in your business (including yourself)?</div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-teamSize">
+        <label class="opt-label" onclick="selectOpt(this,'teamSize','radio')">
+          <input type="radio" name="teamSize" value="solo">
+          <div class="opt-check" aria-hidden="true"></div> Just me (solo)
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'teamSize','radio')">
+          <input type="radio" name="teamSize" value="2-5">
+          <div class="opt-check" aria-hidden="true"></div> 2–5 people
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'teamSize','radio')">
+          <input type="radio" name="teamSize" value="6-15">
+          <div class="opt-check" aria-hidden="true"></div> 6–15 people
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'teamSize','radio')">
+          <input type="radio" name="teamSize" value="16+">
+          <div class="opt-check" aria-hidden="true"></div> 16+ people
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-location">Where is your business based?</div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-location">
+        <label class="opt-label" onclick="selectOpt(this,'location','radio')">
+          <input type="radio" name="location" value="sligo">
+          <div class="opt-check" aria-hidden="true"></div> Sligo
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'location','radio')">
+          <input type="radio" name="location" value="donegal">
+          <div class="opt-check" aria-hidden="true"></div> Donegal
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'location','radio')">
+          <input type="radio" name="location" value="leitrim_roscommon">
+          <div class="opt-check" aria-hidden="true"></div> Leitrim / Roscommon
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'location','radio')">
+          <input type="radio" name="location" value="galway_mayo">
+          <div class="opt-check" aria-hidden="true"></div> Galway / Mayo
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'location','radio')">
+          <input type="radio" name="location" value="dublin">
+          <div class="opt-check" aria-hidden="true"></div> Dublin
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'location','radio')">
+          <input type="radio" name="location" value="elsewhere">
+          <div class="opt-check" aria-hidden="true"></div> Elsewhere in Ireland
+        </label>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button type="button" class="btn btn-primary" onclick="nextStep(1)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 2: TIME & PAIN POINTS ════ -->
+  <div class="step" id="step-2" role="group" aria-label="Section 2: Where Time Gets Lost">
+    <div class="step-header">
+      <div class="step-num">Section 02</div>
+      <div class="step-title">Where Time Gets Lost</div>
+      <div class="step-desc">We want to understand where your team spends time on tasks that feel manual, repetitive, or like they "shouldn't need a human."</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-adminHours">Roughly how many hours per week does your team spend on admin and repetitive tasks (emails, scheduling, data entry, chasing, filing)?</div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-adminHours">
+        <label class="opt-label" onclick="selectOpt(this,'adminHours','radio')">
+          <input type="radio" name="adminHours" value="under5">
+          <div class="opt-check" aria-hidden="true"></div> Under 5 hours
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'adminHours','radio')">
+          <input type="radio" name="adminHours" value="5-10">
+          <div class="opt-check" aria-hidden="true"></div> 5–10 hours
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'adminHours','radio')">
+          <input type="radio" name="adminHours" value="10-20">
+          <div class="opt-check" aria-hidden="true"></div> 10–20 hours
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'adminHours','radio')">
+          <input type="radio" name="adminHours" value="20+">
+          <div class="opt-check" aria-hidden="true"></div> 20+ hours
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card" data-required="painPoints" data-type="checkbox">
+      <div class="q-label" id="lbl-painPoints">Which of these are the biggest time drains in your business? <span class="req" aria-label="required">*</span></div>
+      <div class="q-hint">Select all that apply</div>
+      <div class="pain-grid" role="group" aria-labelledby="lbl-painPoints">
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="invoice_chasing">
+          <div class="pain-icon" aria-hidden="true">📄</div>
+          <div class="pain-text"><strong>Invoice & payment chasing</strong><span>Following up overdue payments manually</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="client_onboarding">
+          <div class="pain-icon" aria-hidden="true">🤝</div>
+          <div class="pain-text"><strong>Client onboarding</strong><span>Collecting info, forms, documents from new clients</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="scheduling">
+          <div class="pain-icon" aria-hidden="true">📅</div>
+          <div class="pain-text"><strong>Scheduling & appointments</strong><span>Back-and-forth to book meetings and calls</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="reporting">
+          <div class="pain-icon" aria-hidden="true">📊</div>
+          <div class="pain-text"><strong>Reporting & summaries</strong><span>Compiling weekly or monthly reports manually</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="lead_followup">
+          <div class="pain-icon" aria-hidden="true">📬</div>
+          <div class="pain-text"><strong>Lead follow-up</strong><span>Chasing enquiries, quotes, or proposals manually</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="data_entry">
+          <div class="pain-icon" aria-hidden="true">⌨️</div>
+          <div class="pain-text"><strong>Data entry & filing</strong><span>Moving info between systems, updating spreadsheets</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="email_overload">
+          <div class="pain-icon" aria-hidden="true">📧</div>
+          <div class="pain-text"><strong>Email overload</strong><span>Drafting responses, sorting, managing inbox volume</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="social_content">
+          <div class="pain-icon" aria-hidden="true">📱</div>
+          <div class="pain-text"><strong>Social media & content</strong><span>Creating, scheduling, posting content consistently</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="compliance_docs">
+          <div class="pain-icon" aria-hidden="true">📋</div>
+          <div class="pain-text"><strong>Compliance & documents</strong><span>AML checks, GDPR forms, document management</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+        <label class="pain-card" onclick="togglePain(this)">
+          <input type="checkbox" name="painPoints" value="customer_support">
+          <div class="pain-icon" aria-hidden="true">💬</div>
+          <div class="pain-text"><strong>Answering same questions</strong><span>Clients asking the same queries over and over</span></div>
+          <div class="pain-cb" aria-hidden="true"></div>
+        </label>
+      </div>
+      <div class="error-msg">Please select at least one pain point to continue.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label"><label for="magicWand">If you could wave a magic wand and fix ONE operational problem in your business, what would it be?</label></div>
+      <div class="q-hint">Be as specific as you like. This is the most valuable question in the survey.</div>
+      <textarea name="magicWand" id="magicWand" placeholder="e.g. 'I spend 3 hours every Monday chasing clients for documents they were supposed to send — it's embarrassing and exhausting...'"></textarea>
+    </div>
+
+    <div class="nav-row">
+      <button type="button" class="btn btn-back" onclick="prevStep(2)">← Back</button>
+      <button type="button" class="btn btn-primary" onclick="nextStep(2)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 3: TOOLS & TECH ════ -->
+  <div class="step" id="step-3" role="group" aria-label="Section 3: Your Tools & Tech Stack">
+    <div class="step-header">
+      <div class="step-num">Section 03</div>
+      <div class="step-title">Your Tools & Tech Stack</div>
+      <div class="step-desc">Understanding what you already use helps us recommend automations that fit straight in — not ones that require ripping everything out.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-tools">Which of these tools does your business currently use?</div>
+      <div class="q-hint">Select all that apply</div>
+      <div class="options-grid" role="group" aria-labelledby="lbl-tools">
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="microsoft365">
+          <div class="opt-check" aria-hidden="true"></div> Microsoft 365 / Outlook
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="google_workspace">
+          <div class="opt-check" aria-hidden="true"></div> Google Workspace / Gmail
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="xero">
+          <div class="opt-check" aria-hidden="true"></div> Xero / QuickBooks / Sage
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="hubspot">
+          <div class="opt-check" aria-hidden="true"></div> HubSpot / Pipedrive / CRM
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="calendly">
+          <div class="opt-check" aria-hidden="true"></div> Calendly / Acuity
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="slack_teams">
+          <div class="opt-check" aria-hidden="true"></div> Slack / Microsoft Teams
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="notion_asana">
+          <div class="opt-check" aria-hidden="true"></div> Notion / Asana / Monday
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="practice_mgmt">
+          <div class="opt-check" aria-hidden="true"></div> Legal / Practice Management Software
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="social_tools">
+          <div class="opt-check" aria-hidden="true"></div> Buffer / Hootsuite / Social Tools
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="spreadsheets">
+          <div class="opt-check" aria-hidden="true"></div> Mostly Excel / Google Sheets
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'tools','checkbox')">
+          <input type="checkbox" name="tools" value="none">
+          <div class="opt-check" aria-hidden="true"></div> No specific tools — mostly manual
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-toolsSat">How satisfied are you with how your current tools work together?</div>
+      <div class="q-hint">1 = complete chaos, different tools don't connect · 5 = everything flows smoothly</div>
+      <div class="scale-wrap" id="scale-toolsSatisfaction" role="radiogroup" aria-labelledby="lbl-toolsSat">
+        <button type="button" class="scale-btn" onclick="setScale('toolsSatisfaction',1,this)" aria-label="1 - Complete chaos">1</button>
+        <button type="button" class="scale-btn" onclick="setScale('toolsSatisfaction',2,this)" aria-label="2">2</button>
+        <button type="button" class="scale-btn" onclick="setScale('toolsSatisfaction',3,this)" aria-label="3">3</button>
+        <button type="button" class="scale-btn" onclick="setScale('toolsSatisfaction',4,this)" aria-label="4">4</button>
+        <button type="button" class="scale-btn" onclick="setScale('toolsSatisfaction',5,this)" aria-label="5 - Flows smoothly">5</button>
+      </div>
+      <div class="scale-labels"><span>Complete chaos</span><span>Flows smoothly</span></div>
+      <input type="hidden" name="toolsSatisfaction" id="toolsSatisfaction">
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-triedAuto">Have you tried any automation tools before? (Zapier, Make.com, etc.)</div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-triedAuto">
+        <label class="opt-label" onclick="selectOpt(this,'triedAuto','radio')">
+          <input type="radio" name="triedAuto" value="yes_using">
+          <div class="opt-check" aria-hidden="true"></div> Yes — still using it
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'triedAuto','radio')">
+          <input type="radio" name="triedAuto" value="yes_stopped">
+          <div class="opt-check" aria-hidden="true"></div> Yes — stopped, too complex
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'triedAuto','radio')">
+          <input type="radio" name="triedAuto" value="heard_not_tried">
+          <div class="opt-check" aria-hidden="true"></div> Heard of it, never tried
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'triedAuto','radio')">
+          <input type="radio" name="triedAuto" value="no_idea">
+          <div class="opt-check" aria-hidden="true"></div> No idea what that is
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label"><label for="autoFailReason">If you tried automation and it didn't work out — what went wrong?</label></div>
+      <div class="q-hint">Skip if not applicable</div>
+      <textarea name="autoFailReason" id="autoFailReason" placeholder="e.g. 'Too complicated to set up', 'Kept breaking', 'We didn't have the technical knowledge to maintain it'..." style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="nav-row">
+      <button type="button" class="btn btn-back" onclick="prevStep(3)">← Back</button>
+      <button type="button" class="btn btn-primary" onclick="nextStep(3)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 4: AI READINESS & APPETITE ════ -->
+  <div class="step" id="step-4" role="group" aria-label="Section 4: AI Awareness & Appetite">
+    <div class="step-header">
+      <div class="step-num">Section 04</div>
+      <div class="step-title">AI Awareness & Appetite</div>
+      <div class="step-desc">We want to understand where you are on your AI journey — no wrong answers, and this has zero bearing on whether we'd work together.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-aiRel">How would you describe your current relationship with AI tools?</div>
+      <div class="options-grid col1" role="radiogroup" aria-labelledby="lbl-aiRel">
+        <label class="opt-label" onclick="selectOpt(this,'aiRelationship','radio')">
+          <input type="radio" name="aiRelationship" value="using_regularly">
+          <div class="opt-check" aria-hidden="true"></div> I use AI tools regularly (ChatGPT, Copilot, etc.) in my work
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'aiRelationship','radio')">
+          <input type="radio" name="aiRelationship" value="tried_occasionally">
+          <div class="opt-check" aria-hidden="true"></div> I've tried a few AI tools but don't use them consistently
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'aiRelationship','radio')">
+          <input type="radio" name="aiRelationship" value="curious_not_started">
+          <div class="opt-check" aria-hidden="true"></div> I'm curious about AI but haven't started yet
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'aiRelationship','radio')">
+          <input type="radio" name="aiRelationship" value="sceptical">
+          <div class="opt-check" aria-hidden="true"></div> I'm a bit sceptical — haven't seen enough proof yet
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'aiRelationship','radio')">
+          <input type="radio" name="aiRelationship" value="not_relevant">
+          <div class="opt-check" aria-hidden="true"></div> I don't think AI is relevant to my type of work yet
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-aiConcerns">What's your biggest concern about adopting AI automation in your business?</div>
+      <div class="q-hint">Select all that apply</div>
+      <div class="options-grid col1" role="group" aria-labelledby="lbl-aiConcerns">
+        <label class="opt-label cb-style" onclick="selectOpt(this,'aiConcerns','checkbox')">
+          <input type="checkbox" name="aiConcerns" value="data_security">
+          <div class="opt-check" aria-hidden="true"></div> Data security and GDPR compliance
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'aiConcerns','checkbox')">
+          <input type="checkbox" name="aiConcerns" value="cost">
+          <div class="opt-check" aria-hidden="true"></div> Cost — don't know if the ROI is there
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'aiConcerns','checkbox')">
+          <input type="checkbox" name="aiConcerns" value="complexity">
+          <div class="opt-check" aria-hidden="true"></div> It seems too complex for a small team to manage
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'aiConcerns','checkbox')">
+          <input type="checkbox" name="aiConcerns" value="reliability">
+          <div class="opt-check" aria-hidden="true"></div> I don't trust it to be reliable / accurate enough
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'aiConcerns','checkbox')">
+          <input type="checkbox" name="aiConcerns" value="no_time">
+          <div class="opt-check" aria-hidden="true"></div> No time to learn or implement something new
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'aiConcerns','checkbox')">
+          <input type="checkbox" name="aiConcerns" value="dont_know_where_start">
+          <div class="opt-check" aria-hidden="true"></div> Don't know where to start — too overwhelming
+        </label>
+        <label class="opt-label cb-style" onclick="selectOpt(this,'aiConcerns','checkbox')">
+          <input type="checkbox" name="aiConcerns" value="no_concerns">
+          <div class="opt-check" aria-hidden="true"></div> No real concerns — ready to go
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-timeCost">How much does losing time to manual tasks cost your business in a typical month? (rough estimate)</div>
+      <div class="q-hint">Think in terms of billable hours lost, staff time, or missed opportunities</div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-timeCost">
+        <label class="opt-label" onclick="selectOpt(this,'timeCost','radio')">
+          <input type="radio" name="timeCost" value="under500">
+          <div class="opt-check" aria-hidden="true"></div> Under €500/month
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'timeCost','radio')">
+          <input type="radio" name="timeCost" value="500-2000">
+          <div class="opt-check" aria-hidden="true"></div> €500–€2,000/month
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'timeCost','radio')">
+          <input type="radio" name="timeCost" value="2000-5000">
+          <div class="opt-check" aria-hidden="true"></div> €2,000–€5,000/month
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'timeCost','radio')">
+          <input type="radio" name="timeCost" value="5000+">
+          <div class="opt-check" aria-hidden="true"></div> €5,000+/month
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'timeCost','radio')">
+          <input type="radio" name="timeCost" value="unknown">
+          <div class="opt-check" aria-hidden="true"></div> Genuinely no idea
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label"><label for="timeSaved">If an AI system could save your team 10 hours per week — what would you actually do with that time?</label></div>
+      <textarea name="timeSaved" id="timeSaved" placeholder="e.g. 'Take on 2 more clients', 'Focus on business development', 'Actually leave the office before 7pm for once'..."></textarea>
+    </div>
+
+    <div class="nav-row">
+      <button type="button" class="btn btn-back" onclick="prevStep(4)">← Back</button>
+      <button type="button" class="btn btn-primary" onclick="nextStep(4)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 5: BUYING SIGNALS + CONTACT ════ -->
+  <div class="step" id="step-5" role="group" aria-label="Section 5: Final Thoughts">
+    <div class="step-header">
+      <div class="step-num">Section 05</div>
+      <div class="step-title">Final Thoughts</div>
+      <div class="step-desc">Last few questions — then you're done. If you'd like to hear what we find in the research, or get a free audit of your biggest time-drain, leave your details below.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-investLikelihood">How likely are you to invest in an AI automation solution for your business in the next 12 months?</div>
+      <div class="q-hint">1 = Not at all likely · 10 = Actively looking to do this now</div>
+      <div class="scale-wrap" id="scale-investLikelihood" role="radiogroup" aria-labelledby="lbl-investLikelihood">
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',1,this)" aria-label="1 - Not at all likely">1</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',2,this)" aria-label="2">2</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',3,this)" aria-label="3">3</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',4,this)" aria-label="4">4</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',5,this)" aria-label="5">5</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',6,this)" aria-label="6">6</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',7,this)" aria-label="7">7</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',8,this)" aria-label="8">8</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',9,this)" aria-label="9">9</button>
+        <button type="button" class="scale-btn" onclick="setScale('investLikelihood',10,this)" aria-label="10 - Actively looking now">10</button>
+      </div>
+      <div class="scale-labels"><span>Not at all likely</span><span>Actively looking now</span></div>
+      <input type="hidden" name="investLikelihood" id="investLikelihood">
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-valuePerception">What would a result like this be worth to your business?</div>
+      <div class="q-hint">"An automated system handles your client onboarding, invoice follow-up, and weekly reporting — saving your team 8+ hours every week."</div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-valuePerception">
+        <label class="opt-label" onclick="selectOpt(this,'valuePerception','radio')">
+          <input type="radio" name="valuePerception" value="under1k">
+          <div class="opt-check" aria-hidden="true"></div> Worth up to €1,000
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'valuePerception','radio')">
+          <input type="radio" name="valuePerception" value="1k-3k">
+          <div class="opt-check" aria-hidden="true"></div> Worth €1,000–€3,000
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'valuePerception','radio')">
+          <input type="radio" name="valuePerception" value="3k-8k">
+          <div class="opt-check" aria-hidden="true"></div> Worth €3,000–€8,000
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'valuePerception','radio')">
+          <input type="radio" name="valuePerception" value="8k+">
+          <div class="opt-check" aria-hidden="true"></div> Worth €8,000+
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'valuePerception','radio')">
+          <input type="radio" name="valuePerception" value="monthly">
+          <div class="opt-check" aria-hidden="true"></div> I'd pay a monthly fee for ongoing management
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'valuePerception','radio')">
+          <input type="radio" name="valuePerception" value="unsure">
+          <div class="opt-check" aria-hidden="true"></div> Not sure yet
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label" id="lbl-decisionMaker">Who else would be involved in a decision like this?</div>
+      <div class="options-grid col2" role="radiogroup" aria-labelledby="lbl-decisionMaker">
+        <label class="opt-label" onclick="selectOpt(this,'decisionMaker','radio')">
+          <input type="radio" name="decisionMaker" value="just_me">
+          <div class="opt-check" aria-hidden="true"></div> Just me — I decide
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'decisionMaker','radio')">
+          <input type="radio" name="decisionMaker" value="partner">
+          <div class="opt-check" aria-hidden="true"></div> Me + business partner(s)
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'decisionMaker','radio')">
+          <input type="radio" name="decisionMaker" value="finance">
+          <div class="opt-check" aria-hidden="true"></div> Needs finance / accountant sign-off
+        </label>
+        <label class="opt-label" onclick="selectOpt(this,'decisionMaker','radio')">
+          <input type="radio" name="decisionMaker" value="committee">
+          <div class="opt-check" aria-hidden="true"></div> Multiple stakeholders / committee
+        </label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label"><label for="anythingElse">Is there anything else you'd like us to know about your business challenges or what you'd look for in an AI partner?</label></div>
+      <textarea name="anythingElse" id="anythingElse" placeholder="Any thoughts, frustrations, wishlist items or things that would make you actually trust and hire someone for this..." style="min-height:120px;"></textarea>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="q-card" style="border-color: var(--teal); background: linear-gradient(135deg, #F0FEFF, #F8FAFD);">
+      <div class="q-label" style="color: var(--teal);">🎁 Optional: Get Your Free Insights Report + Automation Audit</div>
+      <div class="q-hint" style="margin-bottom:16px;">Leave your details below and we'll send you: (1) a summary of what Irish businesses told us in this survey, and (2) a free 20-minute audit of your biggest time-drain. No pitch. No pressure.</div>
+      <div style="display:grid; gap:12px;">
+        <div>
+          <label for="contactName" style="font-size:12px; font-weight:600; color:var(--mid); display:block; margin-bottom:6px;">Your Name</label>
+          <input type="text" name="contactName" id="contactName" placeholder="First name is fine" autocomplete="given-name">
+        </div>
+        <div>
+          <label for="contactEmail" style="font-size:12px; font-weight:600; color:var(--mid); display:block; margin-bottom:6px;">Email Address</label>
+          <input type="email" name="contactEmail" id="contactEmail" placeholder="name@yourbusiness.ie" autocomplete="email">
+        </div>
+        <div>
+          <label for="businessName" style="font-size:12px; font-weight:600; color:var(--mid); display:block; margin-bottom:6px;">Business Name <span style="font-weight:400; color:#aaa;">(optional)</span></label>
+          <input type="text" name="businessName" id="businessName" placeholder="Your firm or company name" autocomplete="organization">
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button type="button" class="btn btn-back" onclick="prevStep(5)">← Back</button>
+      <button type="button" class="btn btn-submit" id="submitBtn" onclick="submitForm()">Submit Survey ✓</button>
+    </div>
+
+    <p style="font-size:12px; color:var(--mid); text-align:center; margin-top:16px; line-height:1.6;">
+      Your responses are used for research purposes only. We will never spam you or share your details with third parties. GDPR compliant.
+    </p>
+  </div>
+
+</form><!-- end form -->
+
+<!-- ── THANK YOU ── -->
+<div class="thank-you" id="thankYou">
+  <div class="ty-icon">✅</div>
+  <h2>Thank you — that's incredibly helpful.</h2>
+  <p>Your answers will directly shape how we build AI automation solutions for Irish businesses. If you left your email, expect to hear from us within 3 working days with your free insights report.</p>
+  <div class="ty-card">
+    <h3>What happens next</h3>
+    <p>We'll compile findings from all respondents and send you a summary of the biggest pain points across Irish professional services businesses — plus a personalised note on what automation could mean for your specific situation.</p>
+  </div>
+</div>
+
+<footer class="footer-note">
+  <p>FlowOps AI · Sligo, Ireland · <a href="mailto:hello@flowopsai.ie">hello@flowopsai.ie</a><br>
+  This survey is anonymous. No information is sold or shared.</p>
+</footer>
+
+</main><!-- end container -->
+
+<!-- Toast notification element -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STATE ────────────────────────────────────────────────────────
+let currentStep = 1;
+const totalSteps = 5;
+const stepNames = [
+  'About Your Business',
+  'Where Time Gets Lost',
+  'Tools & Tech Stack',
+  'AI Awareness',
+  'Final Thoughts'
+];
+
+// ── INIT DOTS ───────────────────────────────────────────────────
+(function initDots() {
+  const wrap = document.getElementById('stepDots');
+  for (let i = 1; i <= totalSteps; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i === 1 ? ' active' : '');
+    d.id = 'dot-' + i;
+    wrap.appendChild(d);
+  }
+})();
+
+// ── PROGRESS UPDATE ─────────────────────────────────────────────
+function updateProgress(step) {
+  const pct = (step / totalSteps) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('stepLabel').textContent = 'Step ' + step + ' of ' + totalSteps;
+  document.getElementById('stepName').textContent = stepNames[step - 1];
+
+  // Update ARIA
+  const bar = document.querySelector('.progress-bar-bg');
+  if (bar) bar.setAttribute('aria-valuenow', Math.round(pct));
+
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById('dot-' + i);
+    dot.className = 'step-dot' + (i < step ? ' done' : i === step ? ' active' : '');
+  }
+}
+
+// ── VALIDATION ──────────────────────────────────────────────────
+function validateStep(stepNum) {
+  const stepEl = document.getElementById('step-' + stepNum);
+  const requiredCards = stepEl.querySelectorAll('.q-card[data-required]');
+  let isValid = true;
+
+  requiredCards.forEach(function(card) {
+    const fieldName = card.getAttribute('data-required');
+    const fieldType = card.getAttribute('data-type');
+    let filled = false;
+
+    if (fieldType === 'radio') {
+      filled = !!document.querySelector('input[name="' + fieldName + '"]:checked');
+    } else if (fieldType === 'checkbox') {
+      filled = document.querySelectorAll('input[name="' + fieldName + '"]:checked').length > 0;
+    }
+
+    if (filled) {
+      card.classList.remove('has-error');
+    } else {
+      card.classList.add('has-error');
+      isValid = false;
+    }
+  });
+
+  if (!isValid) {
+    // Scroll to the first error
+    var firstError = stepEl.querySelector('.q-card.has-error');
+    if (firstError) {
+      firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  return isValid;
+}
+
+// Validate email format
+function isValidEmail(email) {
+  if (!email) return true; // optional field
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// ── NAVIGATION ──────────────────────────────────────────────────
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('step-' + n).classList.add('active');
+  updateProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep(from) {
+  // Validate current step before proceeding
+  if (!validateStep(from)) return;
+
+  if (from < totalSteps) {
+    currentStep = from + 1;
+    showStep(currentStep);
+  }
+}
+
+function prevStep(from) {
+  if (from > 1) {
+    currentStep = from - 1;
+    showStep(currentStep);
+  }
+}
+
+// ── OPTION SELECTION ────────────────────────────────────────────
+function selectOpt(label, groupName, type) {
+  if (type === 'radio') {
+    // Deselect all in group
+    document.querySelectorAll('input[name="' + groupName + '"]').forEach(function(inp) {
+      inp.closest('.opt-label').classList.remove('checked');
+    });
+    label.classList.add('checked');
+    label.querySelector('input').checked = true;
+  } else {
+    // Checkbox toggle
+    var inp = label.querySelector('input');
+    var isChecked = label.classList.contains('checked');
+    label.classList.toggle('checked', !isChecked);
+    inp.checked = !isChecked;
+  }
+
+  // Clear validation error on parent card if present
+  var card = label.closest('.q-card');
+  if (card && card.classList.contains('has-error')) {
+    card.classList.remove('has-error');
+  }
+}
+
+// ── PAIN CARD TOGGLE ─────────────────────────────────────────────
+function togglePain(card) {
+  var isChecked = card.classList.contains('checked');
+  card.classList.toggle('checked', !isChecked);
+  card.querySelector('input').checked = !isChecked;
+
+  // Clear validation error on parent q-card if present
+  var qCard = card.closest('.q-card');
+  if (qCard && qCard.classList.contains('has-error')) {
+    // Check if at least one is now selected
+    var anyChecked = qCard.querySelectorAll('input:checked').length > 0;
+    if (anyChecked) qCard.classList.remove('has-error');
+  }
+}
+
+// ── SCALE ────────────────────────────────────────────────────────
+function setScale(field, value, btn) {
+  var wrap = document.getElementById('scale-' + field);
+  wrap.querySelectorAll('.scale-btn').forEach(function(b) { b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  document.getElementById(field).value = value;
+}
+
+// ── TOAST NOTIFICATIONS ─────────────────────────────────────────
+function showToast(message, isError) {
+  var toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(function() {
+    toast.className = 'toast';
+  }, 4000);
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────
+async function submitForm() {
+  // Validate email if provided
+  var emailField = document.getElementById('contactEmail');
+  if (emailField.value && !isValidEmail(emailField.value)) {
+    emailField.focus();
+    showToast('Please enter a valid email address.', true);
+    return;
+  }
+
+  var submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting…';
+
+  const formData = new FormData(document.getElementById('mainForm'));
+  const data = {};
+
+  for (const [key, value] of formData.entries()) {
+    if (data[key]) {
+      if (!Array.isArray(data[key])) data[key] = [data[key]];
+      data[key].push(value);
+    } else {
+      data[key] = value;
+    }
+  }
+
+  const payload = {};
+  for (const [key, value] of Object.entries(data)) {
+    payload[key] = Array.isArray(value) ? value.join(', ') : value;
+  }
+
+  payload.submittedAt = new Date().toISOString();
+  payload.source = 'FlowOps AI Research Form';
+
+  try {
+    await fetch('https://n8n-production-fc7d.up.railway.app/webhook/flowops-research-form', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.error('Submission error:', err);
+  }
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit Survey ✓';
+
+  document.getElementById('mainForm').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('thankYou').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Prevent accidental form submission via Enter key ────────────
+document.getElementById('mainForm').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+  }
+});
+</script>
+
+</body>
+</html>
